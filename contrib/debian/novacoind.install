@@ -1,0 +1,2 @@
+debian/bin/CharlieChaplinCoind usr/bin
+src/CharlieChaplinCoind usr/lib/CharlieChaplinCoin

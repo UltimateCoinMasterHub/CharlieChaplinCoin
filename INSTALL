@@ -1,0 +1,9 @@
+Building CharlieChaplinCoin
+
+See doc/readme-qt.rst for instructions on building CharlieChaplinCoin Qt,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of CharlieChaplinCoin.
+
+See doc/build-*.txt for instructions on building CharlieChaplinCoind,
+the intended-for-services, no-graphical-interface, reference
+implementation of CharlieChaplinCoin.

@@ -1,0 +1,5 @@
+CharlieChaplinCoin-qt usr/bin
+share/pixmaps/CharlieChaplinCoin32.xpm usr/share/pixmaps
+share/pixmaps/CharlieChaplinCoin80.xpm usr/share/pixmaps
+debian/CharlieChaplinCoin-qt.desktop usr/share/applications
+debian/CharlieChaplinCoin-qt.protocol usr/share/kde4/services/

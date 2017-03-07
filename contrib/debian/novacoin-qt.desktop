@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=CharlieChaplinCoin
+Comment=CharlieChaplinCoin P2P Cryptocurrency
+Comment[ru]=CharlieChaplinCoin, P2P криптовалюта
+Comment[fr]=CharlieChaplinCoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=CharlieChaplinCoin, eşten eşe kriptografik sanal para birimi
+Exec=/usr/bin/CharlieChaplinCoin-qt
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/CharlieChaplinCoin80.xpm
+MimeType=x-scheme-handler/CharlieChaplinCoin;
+Categories=Office;

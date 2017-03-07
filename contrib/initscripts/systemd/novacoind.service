@@ -1,0 +1,11 @@
+[Unit]
+Description=CharlieChaplinCoin daemon serivce
+After=network.target
+
+[Service]
+Type=simple
+User=CharlieChaplinCoin
+ExecStart=/opt/CharlieChaplinCoin/CharlieChaplinCoind
+
+[Install]
+WantedBy=multi-user.target

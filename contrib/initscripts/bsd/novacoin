@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# PROVIDE: CharlieChaplinCoin
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# CharlieChaplinCoin_enable (bool): Set to NO by default. Set this variable to YES if you want to enable CharlieChaplinCoin service.
+# CharlieChaplinCoin_config (path): Set to /usr/local/etc/CharlieChaplinCoin.conf by default.
+# CharlieChaplinCoin_user:  The user account CharlieChaplinCoin daemon runs as. It uses 'root' user by default.
+# CharlieChaplinCoin_group: The group account CharlieChaplinCoin daemon runs as. It uses 'wheel' group by default.
+# CharlieChaplinCoin_datadir (str): Default to "/var/db/CharlieChaplinCoin". Base data directory.
+
+. /etc/rc.subr
+
+name=CharlieChaplinCoin
+rcvar=CharlieChaplinCoin_enable
+
+: ${CharlieChaplinCoin_enable:=NO}
+: ${CharlieChaplinCoin_config=/usr/local/etc/CharlieChaplinCoin.conf}
+: ${CharlieChaplinCoin_datadir=/var/db/CharlieChaplinCoin}
+: ${CharlieChaplinCoin_user="root"}
+: ${CharlieChaplinCoin_group="wheel"}
+
+required_files=${CharlieChaplinCoin_config}
+command=/usr/local/bin/CharlieChaplinCoind
+CharlieChaplinCoin_chdir=${CharlieChaplinCoin_datadir}
+pidfile="${CharlieChaplinCoin_datadir}/CharlieChaplinCoind.pid"
+stop_cmd=CharlieChaplinCoin_stop
+command_args="-conf=${CharlieChaplinCoin_config} -datadir=${CharlieChaplinCoin_datadir} -daemon -pid=${pidfile}"
+start_precmd="${name}_prestart"
+
+CharlieChaplinCoin_create_datadir()
+{
+	echo "Creating data directory"
+	eval mkdir -p ${CharlieChaplinCoin_datadir}
+	[ $? -eq 0 ] && chown -R ${CharlieChaplinCoin_user}:${CharlieChaplinCoin_group} ${CharlieChaplinCoin_datadir}
+}
+
+CharlieChaplinCoin_prestart()
+{
+	if [ ! -d "${CharlieChaplinCoin_datadir}/." ]; then
+		CharlieChaplinCoin_create_datadir || return 1
+	fi
+}
+
+CharlieChaplinCoin_requirepidfile()
+{
+	if [ ! "0`check_pidfile ${pidfile} ${command}`" -gt 1 ]; then
+		echo "${name} not running? (check $pidfile)."
+		exit 1
+	fi
+}
+
+CharlieChaplinCoin_stop()
+{
+    CharlieChaplinCoin_requirepidfile
+
+	echo "Stopping ${name}."
+	eval ${command} -conf=${CharlieChaplinCoin_config} -datadir=${CharlieChaplinCoin_datadir} stop
+	wait_for_pids ${rc_pid}
+}
+
+load_rc_config $name
+run_rc_command "$1"
